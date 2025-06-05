@@ -45,7 +45,7 @@ python utils/merge_top32_front.py --path='scene_1'
 ## 3 图像去畸变
 使用以下命令对图像进行去畸变，并生成内参camera_config文件夹
 ```
-python undistort.py --path='scene_1'
+python utils/undistort.py --path='scene_1'
 ```
 由此得到最终送入标注软件的数据目录：
 ```
@@ -90,21 +90,21 @@ docker compose --profile model up
 在终端启动标注工具。注意第一次运行时因为要拉取docker，需要耗费比较长的时间，后面再运行的时候进入就很快了。
 
 再访问 [http://localhost:8190/](http://localhost:8190/) 进入。若是非本地运行的标注软件，请将localhost改为对应服务器的ip地址即可在本地访问。
+具体标注功能可查看文档[BasicAI](https://docs.basic.ai/docs/basicai-cloud-introduction)
 
 ## 5 提取标注结果
 标注完成后点击标注软件的export拿到标注结果文件夹，文件目录如下所示：
 ```
+scene_1-timestamp
 ├── data
 └── result
 ```
-将extract_lable.py放在该文件夹下，运行extract_label.py即可提取标注结果到labels文件夹下。此时文件目录为：
+将scene_1-timestamp移动到scene_1目录在该文件夹下，运行extract_label.py即可提取标注结果到labels文件夹下。
+
 ```
-├── data
-├── extract_labels.py
-├── labels
-└── result
+python utils/extract_label.py --path='scene_1'
 ```
-最后只需要将labels文件夹移动到scene目录下，然后在scene目录下运行
+然后继续在scene目录下运行
 ```
 python utils/check_label.py --path='scene_1'
 ```
