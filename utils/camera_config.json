@@ -1,0 +1,62 @@
+[
+    {
+        "camera_internal": {
+            "fx": 508.4978239846,
+            "fy": 508.7741041502,
+            "cx": 958.8343566471,
+            "cy": 766.6898352539
+        },
+        "width": 1920,
+        "height": 1536,
+        "camera_external": [],
+        "rowMajor": true
+    },
+    {
+        "camera_internal": {
+            "fx": 509.4363571242,
+            "fy": 509.4938159794,
+            "cx": 958.1033692134,
+            "cy": 768.4160119844
+        },
+        "width": 1920,
+        "height": 1536,
+        "camera_external": [],
+        "rowMajor": true
+    },
+    {
+        "camera_internal": {
+            "fx": 508.5824446091,
+            "fy": 508.6277103318,
+            "cx": 963.2028912179,
+            "cy": 769.8175537735
+        },
+        "width": 1920,
+        "height": 1536,
+        "camera_external": [],
+        "rowMajor": true
+    },
+    {
+        "camera_internal": {
+            "fx": 1016.6074510573,
+            "fy": 1016.7300112986,
+            "cx": 959.6784141464,
+            "cy": 538.6411975938
+        },
+        "width": 1920,
+        "height": 1536,
+        "camera_external": [],
+        "rowMajor": true
+    },
+    {
+        "camera_internal": {
+            "fx": 1910.341731141,
+            "fy": 1910.3058674355,
+            "cx": 1917.7001038394,
+            "cy": 1081.4421265044
+        },
+        "width": 1920,
+        "height": 1536,
+        "camera_external": [],
+        "rowMajor": true
+    }
+]
