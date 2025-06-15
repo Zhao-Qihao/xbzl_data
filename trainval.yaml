@@ -1,0 +1,5 @@
+train:
+  - scene_1
+  - scene_2
+val:
+  - scene_3
