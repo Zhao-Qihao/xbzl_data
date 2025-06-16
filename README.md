@@ -61,7 +61,7 @@ scene_1
 检查以上目录是否都存在于data目录下。最后再使用zip压缩命令将数据目录打包成data.zip
 ```
 $ cd scene_1
-$ zip -r scene_1.zip camera_config camera_image_0 camera_image_1 camera_image_2   lidar_point_cloud_0
+$ zip -r scene_1.zip camera_config camera_image_0 camera_image_1 camera_image_2 camera_image_3 camera_image_4 lidar_point_cloud_0
 ```
 压缩完成后即可提交数据scene_1.zip进标注软件。
 

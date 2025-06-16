@@ -17,10 +17,12 @@ def convert_annotations(input_dir, output_dir):
                 data = json.load(f)
 
             with open(label_file_path, 'w') as label_file:
+                print(label_file_path)
                 for obj in data[0]['objects']:  # 遍历ground truth对象
                     center3D = obj['contour']['center3D']
                     size3D = obj['contour']['size3D']
                     class_name = obj['className']
+                    yaw = obj['contour']['rotation3D']
 
                     # 提取坐标和尺寸
                     x = round(center3D['x'], 3)
@@ -30,23 +32,25 @@ def convert_annotations(input_dir, output_dir):
                     dy = round(size3D['y'], 3)
                     dz = round(size3D['z'], 3)
 
-                    # 写入文件
-                    label_file.write(f"{x} {y} {z} {dx} {dy} {dz} {class_name}\n")
-                for obj in data[1]['objects']:  # 遍历model predictions对象
-                    center3D = obj['contour']['center3D']
-                    size3D = obj['contour']['size3D']
-                    class_name = obj['className']
-
-                    # 提取坐标和尺寸
-                    x = round(center3D['x'], 3)
-                    y = round(center3D['y'], 3)
-                    z = round(center3D['z'], 3)
-                    dx = round(size3D['x'], 3)
-                    dy = round(size3D['y'], 3)
-                    dz = round(size3D['z'], 3)
+                    yaw = round(yaw['z'], 3)
 
                     # 写入文件
-                    label_file.write(f"{x} {y} {z} {dx} {dy} {dz} {class_name}\n")
+                    label_file.write(f"{x} {y} {z} {dx} {dy} {dz} {yaw} {class_name}\n")
+                # for obj in data[1]['objects']:  # 遍历model predictions对象
+                #     center3D = obj['contour']['center3D']
+                #     size3D = obj['contour']['size3D']
+                #     class_name = obj['className']
+
+                #     # 提取坐标和尺寸
+                #     x = round(center3D['x'], 3)
+                #     y = round(center3D['y'], 3)
+                #     z = round(center3D['z'], 3)
+                #     dx = round(size3D['x'], 3)
+                #     dy = round(size3D['y'], 3)
+                #     dz = round(size3D['z'], 3)
+
+                #     # 写入文件
+                #     label_file.write(f"{x} {y} {z} {dx} {dy} {dz} {class_name}\n")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="提取标注信息")

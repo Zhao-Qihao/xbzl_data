@@ -331,14 +331,14 @@ if __name__ == "__main__":
     output_dirs = [f"{scene_dir}/camera_image_0", f"{scene_dir}/camera_image_1", f"{scene_dir}/camera_image_2",
                    f"{scene_dir}/camera_image_3", f"{scene_dir}/camera_image_4"]
     
-    # for param_file, input_dir, output_dir in zip(param_files, input_dirs, output_dirs):
-    #     # 创建输出目录
-    #     if not os.path.exists(output_dir):
-    #         os.makedirs(output_dir)
-    #     if input_dir==f"{scene_dir}/CAM_BACK_3MH" or input_dir==f"{scene_dir}/CAM_FRONT_8M":
-    #         process_pinhole_image(param_file, input_dir, output_dir)
-    #     else:
-    #         process_fisheye_camera(param_file, input_dir, output_dir)
+    for param_file, input_dir, output_dir in zip(param_files, input_dirs, output_dirs):
+        # 创建输出目录
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+        if input_dir==f"{scene_dir}/CAM_BACK_3MH" or input_dir==f"{scene_dir}/CAM_FRONT_8M":
+            process_pinhole_image(param_file, input_dir, output_dir)
+        else:
+            process_fisheye_camera(param_file, input_dir, output_dir)
 
     camera_config_path = "utils/camera_config.json"
     update_camera_config(camera_config_path, param_files, input_dirs)
