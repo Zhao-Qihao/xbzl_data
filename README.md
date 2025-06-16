@@ -99,7 +99,7 @@ scene_1-timestamp
 ├── data
 └── result
 ```
-将scene_1-timestamp移动到scene_1目录在该文件夹下，运行extract_label.py即可提取标注结果到labels文件夹下。
+将scene_1-timestamp移动到scene_1目录下，再返回到总的data文件夹，运行extract_label.py即可提取标注结果到labels文件夹下。
 
 ```
 python utils/extract_label.py --path='scene_1'
