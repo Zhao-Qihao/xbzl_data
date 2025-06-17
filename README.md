@@ -135,6 +135,8 @@ data
 ├── scene_2
 ├── scene_3
 ├── scene_4
+├── scene_5
+├── utils
 └── trainval.yaml
 ```
 trainval.yaml文件为训练集和验证集的索引。文件内容如下：
@@ -146,6 +148,6 @@ train:
 val:
   - scene_4
 ```
-若有新的标注好的场景数据加进来，请将场景数据放在data文件夹下，并修改trainval.yaml文件。注意train和val的数据比例控制在8:2或9:1左右。
+若有新的场景数据加进来，请将场景数据放在data文件夹下，并修改trainval.yaml文件。注意train和val的数据比例控制在8:2或9:1左右。
 
 ## 7 训练模型

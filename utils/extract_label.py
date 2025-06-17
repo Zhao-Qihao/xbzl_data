@@ -17,7 +17,7 @@ def convert_annotations(input_dir, output_dir):
                 data = json.load(f)
 
             with open(label_file_path, 'w') as label_file:
-                print(label_file_path)
+                print(f"Processing file: {file_path}")
                 for obj in data[0]['objects']:  # 遍历ground truth对象
                     center3D = obj['contour']['center3D']
                     size3D = obj['contour']['size3D']
