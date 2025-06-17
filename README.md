@@ -1,7 +1,7 @@
 ## 1 数据预处理
 首先拿到以下格式的数据：
 ```
-scene_1
+scene_4
 ├── CAM_BACK_3MH
 ├── CAM_FRONT_3M
 ├── CAM_FRONT_8M
@@ -49,7 +49,7 @@ python utils/undistort.py --path='scene_4'
 ```
 由此得到最终送入标注软件的数据目录：
 ```
-scene_1
+scene_4
 ├── camera_config
 ├── camera_image_0
 ├── camera_image_1
@@ -58,12 +58,12 @@ scene_1
 ├── camera_image_4
 ├── lidar_point_cloud_0
 ```
-检查以上目录是否都存在于data目录下。最后再使用zip压缩命令将数据目录打包成data.zip
+检查以上目录是否都存在于data目录下。最后再使用zip压缩命令将该场景数据目录打包
 ```
-$ cd scene_1
-$ zip -r scene_1.zip camera_config camera_image_0 camera_image_1 camera_image_2 camera_image_3 camera_image_4 lidar_point_cloud_0
+$ cd scene_4
+$ zip -r scene_4.zip camera_config camera_image_0 camera_image_1 camera_image_2 camera_image_3 camera_image_4 lidar_point_cloud_0
 ```
-压缩完成后即可提交数据scene_1.zip进标注软件。
+压缩完成后即可提交数据scene_4.zip进标注软件。
 
 ## 4 标注
 若是第一次使用标注工具，需要先配置标注工具：
@@ -95,23 +95,23 @@ docker compose --profile model up
 ## 5 提取标注结果
 标注完成后点击标注软件的export拿到标注结果文件夹，文件目录如下所示：
 ```
-scene_1-timestamp
+scene_4-timestamp
 ├── data
 └── result
 ```
-将scene_1-timestamp移动到scene_1目录下，再返回到总的data文件夹，运行extract_label.py即可提取标注结果到labels文件夹下。
+将scene_4-timestamp移动到scene_4目录下，再返回到总的data文件夹，运行extract_label.py即可提取标注结果到labels文件夹下。
 
 ```
-python utils/extract_label.py --path='scene_1'
+python utils/extract_label.py --path='scene_4'
 ```
 然后继续在scene目录下运行
 ```
-python utils/check_label.py --path='scene_1'
+python utils/check_label.py --path='scene_4'
 ```
 以此检查标注结果，若终端未显示ERROR和WARNING，则说明标注结果无误。，同时scene目录下会生成statistics.txt文件，记录了该scene的帧数以及每个类别的数量信息。
 由此得到了单个场景可标注的数据(请确保scene_1目录下存在下述文件和文件夹)：
 ```
-scene_1
+scene_4
 ├── camera_config
 ├── camera_image_0
 ├── camera_image_1
@@ -124,7 +124,7 @@ scene_1
 ```
 若要节约存储空间，除了上述之外的其他文件夹都可以删去。
 
-以上只是处理了一个场景的数据，若要处理多个场景的数据，请重复以上步骤，并将以上所有命令中涉及scene_1的替换为你的场景名称，如scene_2，scene_3，scene_4等等。每个场景数据量为几百帧。
+以上只是处理了一个场景的数据，若要处理多个场景的数据，请重复以上步骤，并将以上所有命令中涉及scene_4的替换为你的场景名称，如scene_1，scene_2，scene_3等等。每个场景数据量为几百帧。
 
 ## 6 将标注好的数据加入到总的数据集中
 将上述得到的scene_1数据移动到总的数据集data文件夹下。
