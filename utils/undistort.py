@@ -20,10 +20,20 @@ def update_camera_config(camera_config_path, param_files, input_dirs):
     for i, (param_file, input_dir) in enumerate(zip(param_files, input_dirs)):
         # 获取内参
         if input_dir==f"{scene_dir}/CAM_FRONT_8M":
+            # 使用更新后的内参
             fx = 1910.3417311410
             fy = 1910.3058674355
             cx = 1917.7001038394
             cy = 1081.4421265044
+            # 计算裁剪后的新内参
+            width = 3840
+            height = 2160
+            crop_width = width - 1920
+            crop_height = height - 1536
+            left = max(0, int(crop_width/2))
+            top = max(0, int(crop_height/2))
+            cx = cx - left
+            cy = cy - top
         else:
             internal_params = read_camera_parameters(param_file)
             fx = internal_params.get("FX")
@@ -219,14 +229,14 @@ def calculate_new_camera_matrix(params, input_dir, crop_percent=1):
             crop_width = width-1920
             crop_height = height-1536
             # 计算裁剪边界
-            left = max(0, int(cx - crop_width/2))
-            top = max(0, int(cy - crop_height/2))
+            left = max(0, int(crop_width/2))
+            top = max(0, int(crop_height/2))
             
             # 计算裁剪后的主点坐标
             # 新的主点坐标需要减去裁剪的偏移量
             new_cx = cx - left  # left是裁剪的起始x坐标
             new_cy = cy - top   # top是裁剪的起始y坐标
-            
+            print(f"新的主点坐标: {new_cx}, {new_cy}")
             # 构建原始相机矩阵
             camera_matrix = np.array([
                 [fx, 0, cx],
@@ -279,13 +289,10 @@ def undistort_pinhole_image(image_path, params, input_dir):
     undistorted_img = cv2.undistort(img, camera_matrix, dist_coeffs)
 
     if input_dir==f"{scene_dir}/CAM_FRONT_8M":
-          undistorted_img=crop_image(undistorted_img,params['CX'],params['CY'])
-          camera_matrix, new_camera_matrix=calculate_new_camera_matrix(params, input_dir)
-        #   print("\n原始相机矩阵:")
-        #   print(camera_matrix)
-        #   print("\n新的相机矩阵:")
-        #   print(new_camera_matrix)
-    
+        undistorted_img=crop_image(undistorted_img,params['CX'],params['CY'])
+        camera_matrix,new_camera_matrix=calculate_new_camera_matrix(params, input_dir)
+        return undistorted_img, new_camera_matrix
+        
     return undistorted_img, camera_matrix
 
 def process_pinhole_image(param_file, input_dir, output_dir):
@@ -297,6 +304,7 @@ def process_pinhole_image(param_file, input_dir, output_dir):
                 try:
                     cropped_img, new_camera_matrix = undistort_pinhole_image(image_path, params,input_dir)
                     # 获取原始文件名
+
                     filename = os.path.basename(image_path)
                     # 构建输出文件路径
                     output_path = os.path.join(output_dir, f'{filename}')
