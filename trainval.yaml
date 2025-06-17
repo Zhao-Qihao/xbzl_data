@@ -1,6 +1,5 @@
 train:
   - scene_1
-  - scene_2
-  - scene_4
+
 val:
-  - scene_3
+  - scene_
