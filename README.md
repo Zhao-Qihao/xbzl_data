@@ -144,3 +144,4 @@ val:
 若有新的场景数据加进来，请将场景数据放在data文件夹下，并修改trainval.yaml文件。注意train和val的数据比例控制在8:2或9:1左右。
 
 ## 7 训练模型
+见[ADML3D](https://github.com/Zhao-Qihao/ADML3D)
