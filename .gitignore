@@ -2,3 +2,5 @@ scene_1/*
 scene_2/*
 scene_3/*
 scene_4/*
+*.pkl
+trainval.yaml
