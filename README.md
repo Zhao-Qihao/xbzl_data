@@ -8,10 +8,7 @@ scene_4
 ├── CAM_LEFT_3M
 ├── CAM_RIGHT_3M
 ├── LIDAR_FRONT
-├── LIDAR_LEFT
 ├── LIDAR_REAR
-├── LIDAR_RIGHT
-├── LIDAR_TOP_128
 ├── LIDAR_TOP_32
 ```
 处理数据前先查看每个文件夹下的帧是否一致，若不一致则删除多余的帧。
@@ -30,7 +27,6 @@ data
     ├── check_label.py
     ├── lidar2m128.json
     ├── merge_pcd.py
-    ├── merge_top32_front.py
     ├── Parameters
     └── undistort.py
 ```
@@ -39,9 +35,7 @@ data
 首先使用以下命令生成所有lidar合成的pcd格式点云数据lidar_point_cloud_0，以及LIDAR_TOP_32和LIDAR_FRONT合成的bin格式点云数据lidar_point_cloud_1，此时都为LIDAR_TOP_32激光雷达坐标系
 ```
 python utils/merge_pcd.py --path='scene_4'
-python utils/merge_top32_front.py --path='scene_4'
 ```
-生成lidar_point_cloud_0是为了更好的标注数据用(标注平台只接受pcd格式点云)，生成lidar_point_cloud_1是为了训练模型/测试模型使用(bin格式点云读取更快，所以在训练时候使用bin格式)。
 ## 3 图像去畸变
 使用以下命令对图像进行去畸变，并生成内参camera_config文件夹
 ```

@@ -5,7 +5,7 @@ import os
 import argparse
 
 # 加载外参矩阵
-with open("utils/lidar2m128.json", "r") as f:
+with open("utils/lidar2m32.json", "r") as f:
     transforms = json.load(f)
 
 def apply_transform(pcd, matrix):
@@ -19,18 +19,17 @@ def transform2lidar32(pcd, matrix):
 
 def merge_all_lidars(timestamp, scene_dir):
     merged_pcd = o3d.geometry.PointCloud()
-    for lidar_name in ["LIDAR_FRONT", "LIDAR_LEFT", "LIDAR_REAR", "LIDAR_RIGHT", "LIDAR_TOP_32", "LIDAR_TOP_128"]:
+    for lidar_name in ["LIDAR_FRONT", "LIDAR_REAR", "LIDAR_TOP_32"]:
         pcd_path = f"{scene_dir}/{lidar_name}/{timestamp}.pcd"
         if os.path.exists(pcd_path):
             pcd = o3d.io.read_point_cloud(pcd_path)
             # 只有非主雷达才需要变换
-            if lidar_name != "LIDAR_TOP_128":
+            if lidar_name != "LIDAR_TOP_32":
                 pcd = apply_transform(pcd, transforms[lidar_name])
             merged_pcd += pcd
-    merged_pcd_32 = transform2lidar32(merged_pcd, transforms["LIDAR_TOP_32"])
 
     # 保存合并后的点云
-    o3d.io.write_point_cloud(f"{scene_dir}/lidar_point_cloud_0/{timestamp}.pcd", merged_pcd_32)
+    o3d.io.write_point_cloud(f"{scene_dir}/lidar_point_cloud_0/{timestamp}.pcd", merged_pcd)
     print(f"已保存合并后的点云：{scene_dir}/lidar_point_cloud_0/{timestamp}.pcd")
 
 def main():
