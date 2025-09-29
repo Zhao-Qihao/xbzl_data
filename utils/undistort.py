@@ -18,29 +18,17 @@ def update_camera_config(camera_config_path, param_files, input_dirs):
 
     # 遍历每个相机配置
     for i, (param_file, input_dir) in enumerate(zip(param_files, input_dirs)):
-        # 获取内参
         if input_dir==f"{scene_dir}/CAM_FRONT_8M":
-            # 使用更新后的内参
-            fx = 1910.3417311410
-            fy = 1910.3058674355
-            cx = 1917.7001038394
-            cy = 1081.4421265044
-            # 计算裁剪后的新内参
-            width = 3840
-            height = 2160
-            crop_width = width - 1920
-            crop_height = height - 1536
-            left = max(0, int(crop_width/2))
-            top = max(0, int(crop_height/2))
-            cx = cx - left
-            cy = cy - top
+            width=3840
+            height=2160
         else:
-            internal_params = read_camera_parameters(param_file)
-            fx = internal_params.get("FX")
-            fy = internal_params.get("FY")
-            cx = internal_params.get("CX")
-            cy = internal_params.get("CY")
-
+            width=1920
+            height=1536
+        internal_params = read_camera_parameters(param_file)
+        fx = internal_params.get("FX")
+        fy = internal_params.get("FY")
+        cx = internal_params.get("CX")
+        cy = internal_params.get("CY")
         # 获取外参
         external_matrix = ext_params.get(input_dir.split('/')[-1])
         flat_external = sum(external_matrix, [])  # 展平为一维列表
@@ -53,8 +41,8 @@ def update_camera_config(camera_config_path, param_files, input_dirs):
                 "cx": cx,
                 "cy": cy
             },
-            "width": 1920,
-            "height": 1536,
+            "width": width,
+            "height": height,
             "camera_external": flat_external,
             "rowMajor": True
         }
@@ -110,7 +98,6 @@ def read_camera_parameters(param_file):
                     params[key] = value
     
     return params
-
 
 def undistort_fisheye_images(param_file, input_dir, output_dir):
     """对鱼眼相机拍摄的图像进行去畸变处理"""
@@ -287,11 +274,6 @@ def undistort_pinhole_image(image_path, params, input_dir):
     
     # 去畸变
     undistorted_img = cv2.undistort(img, camera_matrix, dist_coeffs)
-
-    if input_dir==f"{scene_dir}/CAM_FRONT_8M":
-        undistorted_img=crop_image(undistorted_img,params['CX'],params['CY'])
-        camera_matrix,new_camera_matrix=calculate_new_camera_matrix(params, input_dir)
-        return undistorted_img, new_camera_matrix
         
     return undistorted_img, camera_matrix
 
@@ -353,4 +335,3 @@ if __name__ == "__main__":
     generate_camera_config_dir(camera_config_path)
     
     print("\n处理完所有图片")
-
