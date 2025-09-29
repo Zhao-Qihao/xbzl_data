@@ -31,8 +31,8 @@ data
     └── undistort.py
 ```
 ## 2 合并点云
-```merge_pcd.py```是将各激光雷达数据转换合成到LIDAR_TOP_32激光雷达坐标系的脚本。(之所以转到32激光雷达坐标系是因为32激光雷达数据量是实际运行推理时所用的坐标系。)
-首先使用以下命令生成所有lidar合成的pcd格式点云数据lidar_point_cloud_0，以及LIDAR_TOP_32和LIDAR_FRONT合成的bin格式点云数据lidar_point_cloud_1，此时都为LIDAR_TOP_32激光雷达坐标系
+```merge_pcd.py```是将各激光雷达数据转换合成到LIDAR_TOP_32激光雷达坐标系的脚本。(实际运行推理时的坐标系。)
+首先使用以下命令生成所有lidar合成的pcd格式点云数据lidar_point_cloud_0
 ```
 python utils/merge_pcd.py --path='scene_4'
 ```
