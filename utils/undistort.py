@@ -292,19 +292,12 @@ def process_pinhole_image(param_file, input_dir, output_dir):
                     output_path = os.path.join(output_dir, f'{filename}')
                     # 保存处理后的图片
                     cv2.imwrite(output_path, cropped_img)
-                    print(f"已保存处理后的图片: {output_path}")
+                    print(f"已处理: {image_path}")
 
 
                 except Exception as e:
                     print(f"处理图像 {image_path} 时出错: {str(e)}")
-
-            # 打印新的相机参数
-            print("新的相机参数:")
-            print(f"FX: {new_camera_matrix[0, 0]:.10f}")
-            print(f"FY: {new_camera_matrix[1, 1]:.10f}")
-            print(f"CX: {new_camera_matrix[0, 2]:.10f}")
-            print(f"CY: {new_camera_matrix[1, 2]:.10f}\n")
-            
+            print(f"所有图像已处理完成并保存到 {output_dir} 目录")
         except Exception as e:
             print(f"处理图像时出错: {str(e)}")
 
@@ -314,10 +307,11 @@ if __name__ == "__main__":
     parser.add_argument('--path', type=str, required=True, help='场景路径，例如 scene_1')
     args = parser.parse_args()
     scene_dir = args.path
-    param_files = ["utils/Parameters/fisheye-front.txt", "utils/Parameters/fisheye-left.txt", 
-                   "utils/Parameters/fisheye-right.txt", "utils/Parameters/pinhole-back.txt","utils/Parameters/pinhole-front.txt"]
-    input_dirs = [f"{scene_dir}/CAM_FRONT_3M", f"{scene_dir}/CAM_LEFT_3M", f"{scene_dir}/CAM_RIGHT_3M", 
-                  f"{scene_dir}/CAM_BACK_3MH", f"{scene_dir}/CAM_FRONT_8M"]
+    param_files = ["utils/Parameters/pinhole-front.txt","utils/Parameters/fisheye-front.txt", 
+                   "utils/Parameters/fisheye-left.txt", "utils/Parameters/fisheye-right.txt", "utils/Parameters/pinhole-back.txt"]
+    input_dirs = [f"{scene_dir}/CAM_FRONT_8M",f"{scene_dir}/CAM_FRONT_3M",
+                   f"{scene_dir}/CAM_LEFT_3M", f"{scene_dir}/CAM_RIGHT_3M", 
+                  f"{scene_dir}/CAM_BACK_3MH" ]
     output_dirs = [f"{scene_dir}/camera_image_0", f"{scene_dir}/camera_image_1", f"{scene_dir}/camera_image_2",
                    f"{scene_dir}/camera_image_3", f"{scene_dir}/camera_image_4"]
     

@@ -26,6 +26,7 @@ def merge_all_lidars(timestamp, scene_dir):
             # 只有非主雷达才需要变换
             if lidar_name != "LIDAR_TOP_32":
                 pcd = apply_transform(pcd, transforms[lidar_name])
+                print(f"已应用变换矩阵到 {lidar_name}")
             merged_pcd += pcd
 
     # 保存合并后的点云
