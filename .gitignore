@@ -3,4 +3,6 @@ scene_2/*
 scene_3/*
 scene_4/*
 *.pkl
+scene_1_unaligned
 trainval.yaml
+scene_1

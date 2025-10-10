@@ -34,12 +34,12 @@ data
 ```merge_pcd.py```是将各激光雷达数据转换合成到LIDAR_TOP_32激光雷达坐标系的脚本。(实际运行推理时的坐标系。)
 首先使用以下命令生成所有lidar合成的pcd格式点云数据lidar_point_cloud_0
 ```
-python utils/merge_pcd.py --path='scene_4'
+python utils/merge_pcd.py --path='scene_1'
 ```
 ## 3 图像去畸变
 使用以下命令对图像进行去畸变，并生成内参camera_config文件夹
 ```
-python utils/undistort.py --path='scene_4'
+python utils/undistort.py --path='scene_1'
 ```
 由此得到最终送入标注软件的数据目录：
 ```
@@ -54,8 +54,8 @@ scene_4
 ```
 检查以上目录是否都存在于data目录下。最后再使用zip压缩命令将该场景数据目录打包
 ```
-$ cd scene_4
-$ zip -r scene_4.zip camera_config camera_image_0 camera_image_1 camera_image_2 camera_image_3 camera_image_4 lidar_point_cloud_0
+$ cd scene_1
+$ zip -r scene_1.zip camera_config camera_image_0 camera_image_1 camera_image_2 camera_image_3 camera_image_4 lidar_point_cloud_0
 ```
 压缩完成后即可提交数据scene_4.zip进标注软件。
 
